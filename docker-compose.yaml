@@ -1,0 +1,17 @@
+services:
+  # Tu aplicación Express
+  app:
+    image: ignaciocastelar/express-app:latest
+    ports:
+      - "8080:8080"
+    container_name: express-app
+    restart: unless-stopped
+
+  # El vigilante (Watchtower)
+  watchtower:
+    image: containrrr/watchtower
+    container_name: watchtower
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=60 # Revisa actualizaciones cada 60 segundos
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock # Necesario para controlar Docker
